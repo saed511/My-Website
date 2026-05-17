@@ -113,7 +113,7 @@ header h1 {
     color: #38bdf8;
 }
 
-/* ICON */
+/* ===== ICON ===== */
 .icon {
     font-size: 40px;
     filter: drop-shadow(0 0 10px #38bdf8);
@@ -171,10 +171,7 @@ header h1 {
     background: rgba(0,0,0,0.2);
 }
 
-/* ========================= */
-/* 📱 MOBILE FIX ONLY */
-/* ========================= */
-
+/* ================= MOBILE FIX ================= */
 @media (max-width: 768px) {
 
     header {
@@ -212,8 +209,18 @@ header h1 {
         padding: 0 10px;
     }
 
-    /* 🔥 POPUP FIX */
     .content-box {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .card:active {
+        transform: scale(0.98);
+    }
+
+    /* ===== POPUP FIX ONLY FOR MOBILE ===== */
+    .popup-box{
         position: fixed;
         top: 50%;
         left: 50%;
@@ -225,11 +232,11 @@ header h1 {
         display: none;
     }
 
-    .content-box.show {
+    .popup-box.show{
         display: block;
     }
 
-    .overlay {
+    .overlay{
         position: fixed;
         top: 0;
         left: 0;
@@ -240,7 +247,7 @@ header h1 {
         display: none;
     }
 
-    .overlay.show {
+    .overlay.show{
         display: block;
     }
 }
@@ -348,6 +355,9 @@ header h1 {
 
 </section>
 
+<!-- OVERLAY -->
+<div class="overlay" onclick="closePopup()"></div>
+
 <!-- SETTINGS -->
 <div class="settings">
     <h3>Settings</h3>
@@ -365,9 +375,6 @@ header h1 {
     </select>
 </div>
 
-<!-- OVERLAY -->
-<div class="overlay" onclick="closeBox()"></div>
-
 <!-- FOOTER -->
 <footer class="footer">
     <p>© 2026 SecureNetGuard. All Rights Reserved.</p>
@@ -377,38 +384,27 @@ header h1 {
 <script>
 
 function showPage(page){
-    document.querySelectorAll(".section").forEach(s=>{
-        s.classList.remove("active");
-    });
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
     document.getElementById(page).classList.add("active");
 }
 
 function showContent(type){
 
     const data = {
-        collab: "Cybersecurity collaboration...",
-        attack: "Attack simulation...",
-        defense: "Defense system...",
-        obj: "Objectives...",
-        tech: "Technologies..."
+        collab: "Cybersecurity collaboration is not an option but a critical necessity...",
+        attack: "Cyber attack simulation represents an advanced training environment...",
+        defense: "The cybersecurity defense system represents the primary line...",
+        obj: "The cybersecurity framework aims to build a secure and stable digital environment...",
+        tech: "The system relies on a set of advanced cybersecurity technologies..."
     };
 
     const box = document.getElementById("contentBox");
     box.innerHTML = `<h2>${type.toUpperCase()}</h2><p>${data[type]}</p>`;
 
     if(window.innerWidth <= 768){
-        box.classList.add("show");
+        box.classList.add("popup-box","show");
         document.querySelector(".overlay").classList.add("show");
     }
-}
-
-function closeBox(){
-    document.getElementById("contentBox").classList.remove("show");
-    document.querySelector(".overlay").classList.remove("show");
-}
-
-function toggleSettings(){
-    document.querySelector(".settings").classList.toggle("show");
 }
 
 function showDevice(type){
@@ -421,15 +417,30 @@ function showDevice(type){
         kali: "Kali Linux info..."
     };
 
-    document.getElementById("docsContent").innerHTML =
-        `<h2>${type}</h2><p>${systems[type]}</p>`;
+    const box = document.getElementById("docsContent");
+    box.innerHTML = `<h2>${type}</h2><p>${systems[type]}</p>`;
+
+    if(window.innerWidth <= 768){
+        box.classList.add("popup-box","show");
+        document.querySelector(".overlay").classList.add("show");
+    }
+}
+
+function closePopup(){
+    document.querySelectorAll(".popup-box").forEach(el=>{
+        el.classList.remove("show");
+    });
+    document.querySelector(".overlay").classList.remove("show");
+}
+
+function toggleSettings(){
+    document.querySelector(".settings").classList.toggle("show");
 }
 
 window.showPage = showPage;
 window.showContent = showContent;
-window.toggleSettings = toggleSettings;
 window.showDevice = showDevice;
-window.closeBox = closeBox;
+window.toggleSettings = toggleSettings;
 
 </script>
 
