@@ -101,8 +101,6 @@ header h1 {
     border: 1px solid rgba(56,189,248,0.15);
     cursor: pointer;
     transition: 0.4s;
-    position: relative;
-    overflow: hidden;
 }
 
 .card:hover {
@@ -174,7 +172,7 @@ header h1 {
 }
 
 /* ========================= */
-/* 📱 MOBILE ONLY MODAL FIX */
+/* 📱 MOBILE FIX ONLY */
 /* ========================= */
 
 @media (max-width: 768px) {
@@ -214,17 +212,20 @@ header h1 {
         padding: 0 10px;
     }
 
+    /* 🔥 POPUP FIX */
     .content-box {
-        width: 90%;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 90%;
+        max-height: 70vh;
+        overflow-y: auto;
         z-index: 999;
         display: none;
     }
 
-    .content-box.mobile {
+    .content-box.show {
         display: block;
     }
 
@@ -241,10 +242,6 @@ header h1 {
 
     .overlay.show {
         display: block;
-    }
-
-    .card:active {
-        transform: scale(0.98);
     }
 }
 
@@ -312,7 +309,7 @@ header h1 {
 
     <div class="hero">
         <h2>Systems Documentation</h2>
-        <p>Select a system to display detailed information.</p>
+        <p>Select a system to display details.</p>
     </div>
 
     <div class="cards">
@@ -369,7 +366,7 @@ header h1 {
 </div>
 
 <!-- OVERLAY -->
-<div class="overlay" onclick="closeMobile()"></div>
+<div class="overlay" onclick="closeBox()"></div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -400,13 +397,13 @@ function showContent(type){
     box.innerHTML = `<h2>${type.toUpperCase()}</h2><p>${data[type]}</p>`;
 
     if(window.innerWidth <= 768){
-        box.classList.add("mobile");
+        box.classList.add("show");
         document.querySelector(".overlay").classList.add("show");
     }
 }
 
-function closeMobile(){
-    document.getElementById("contentBox").classList.remove("mobile");
+function closeBox(){
+    document.getElementById("contentBox").classList.remove("show");
     document.querySelector(".overlay").classList.remove("show");
 }
 
@@ -432,7 +429,7 @@ window.showPage = showPage;
 window.showContent = showContent;
 window.toggleSettings = toggleSettings;
 window.showDevice = showDevice;
-window.closeMobile = closeMobile;
+window.closeBox = closeBox;
 
 </script>
 
