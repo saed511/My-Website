@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SecureNetGuard X</title>
+
+<style>
+
+/* ========== GLOBAL ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #0b1220, #05070f);
+    color: #e5e7eb;
+    overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(56,189,248,0.2);
+    position: sticky;
+    top: 0;
+}
+
+header h1 {
+    color: #38bdf8;
+    letter-spacing: 1px;
+}
+
+/* ===== NAV ===== */
+.nav-links {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-links a {
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    transform: translateY(-3px);
+    background: #38bdf8;
+    color: black;
+    box-shadow: 0 0 15px #38bdf8;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    display: none;
+    padding: 60px;
+    text-align: center;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ===== HERO ===== */
+.hero h2 {
+    font-size: 40px;
+    background: linear-gradient(90deg,#38bdf8,#a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 10px auto;
+    opacity: 0.8;
+}
+
+/* ===== CARDS ===== */
+.cards {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 25px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.15);
+    cursor: pointer;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 0 25px rgba(56,189,248,0.4);
+}
+
+.card h3 {
+    margin-top: 10px;
+    color: #38bdf8;
+}
+
+/* ICON */
+.icon {
+    font-size: 40px;
+    filter: drop-shadow(0 0 10px #38bdf8);
+}
+
+/* ===== CONTENT BOX ===== */
+.content-box {
+    margin-top: 40px;
+    padding: 25px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(56,189,248,0.2);
+    box-shadow: 0 0 20px rgba(56,189,248,0.1);
+}
+
+/* ===== SETTINGS ===== */
+.settings {
+    position: fixed;
+    top: 80px;
+    right: -320px;
+    width: 280px;
+    padding: 20px;
+    background: rgba(10,15,30,0.95);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 18px;
+    transition: 0.4s;
+    backdrop-filter: blur(15px);
+}
+
+.settings.show {
+    right: 20px;
+}
+
+.settings h3 {
+    color: #38bdf8;
+}
+
+.settings input,
+.settings select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    opacity: 0.6;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.2);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-links a {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+        font-size: 22px;
+    }
+
+    .hero p {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    .content-box {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .card:active {
+        transform: scale(0.98);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>SecureNetGuard X</h1>
+
+    <div class="nav-links">
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="toggleSettings()">Settings</a>
+        <a onclick="showPage('docs')">Docs</a>
+    </div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="section active">
+
+    <div class="hero">
+        <h2>Cyber Security Command Center</h2>
+        <p>Advanced simulation of attacks, defense systems, and network protection architecture.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card" onclick="showContent('collab')">
+            <div class="icon">🤝</div>
+            <h3>Collaboration</h3>
+        </div>
+
+        <div class="card" onclick="showContent('attack')">
+            <div class="icon">💣</div>
+            <h3>Attack Simulation</h3>
+        </div>
+
+        <div class="card" onclick="showContent('defense')">
+            <div class="icon">🛡️</div>
+            <h3>Defense System</h3>
+        </div>
+
+        <div class="card" onclick="showContent('obj')">
+            <div class="icon">🎯</div>
+            <h3>Objectives</h3>
+        </div>
+
+        <div class="card" onclick="showContent('tech')">
+            <div class="icon">⚙️</div>
+            <h3>Technologies</h3>
+        </div>
+
+    </div>
+
+    <div id="contentBox" class="content-box">
+        <h2>Welcome</h2>
+        <p>Select a module to explore the system.</p>
+    </div>
+
+</section>
+
+<!-- DOCS -->
+<section id="docs" class="section">
+
+    <div class="hero">
+        <h2>Systems Documentation</h2>
+        <p>Select a system to display detailed information.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card" onclick="showDevice('windows')">
+            <div class="icon">🪟</div>
+            <h3>Windows</h3>
+        </div>
+
+        <div class="card" onclick="showDevice('server')">
+            <div class="icon">🖥️</div>
+            <h3>Windows Server</h3>
+        </div>
+
+        <div class="card" onclick="showDevice('router')">
+            <div class="icon">📡</div>
+            <h3>Router</h3>
+        </div>
+
+        <div class="card" onclick="showDevice('ubuntu')">
+            <div class="icon">🐧</div>
+            <h3>Ubuntu</h3>
+        </div>
+
+        <div class="card" onclick="showDevice('kali')">
+            <div class="icon">⚡</div>
+            <h3>Kali Linux</h3>
+        </div>
+
+    </div>
+
+    <div id="docsContent" class="content-box">
+        <h2>Documentation Center</h2>
+        <p>Select a system to view details.</p>
+    </div>
+
+</section>
+
+<!-- SETTINGS -->
+<div class="settings">
+    <h3>Settings</h3>
+
+    <label>Font Size</label>
+    <input type="range" min="12" max="28"
+        oninput="document.body.style.fontSize=this.value+'px'">
+
+    <label>Font</label>
+    <select onchange="document.body.style.fontFamily=this.value">
+        <option>Segoe UI</option>
+        <option>Arial</option>
+        <option>Tahoma</option>
+        <option>Verdana</option>
+    </select>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 SecureNetGuard. All Rights Reserved.</p>
+    <p>Designed by Jordan Cybersecurity Team</p>
+</footer>
+
+<script>
+
+function showPage(page){
+    document.querySelectorAll(".section").forEach(s=>{
+        s.classList.remove("active");
+    });
+    document.getElementById(page).classList.add("active");
+}
+
+function showContent(type){
+
+    const data = {
+        collab: "Cybersecurity collaboration is not an option but a critical necessity, where minds and expertise unite to form an integrated digital shield capable of detecting complex threats, analyzing them, and countering them before they evolve into real breaches that endanger systems and critical infrastructures.",
+        attack: "Cyber attack simulation represents an advanced training environment that replicates real-world attack scenarios, aiming to uncover security vulnerabilities, test system resilience, and study attacker tactics, enabling the development of proactive defenses capable of countering the most sophisticated digital threats.",
+        defense: "The cybersecurity defense system represents the primary line of protection against digital attacks, relying on advanced technologies such as firewalls, intrusion detection and prevention systems, and real-time monitoring to detect threats early, respond efficiently, and ensure the continuity and security of critical systems.",
+        obj: "The cybersecurity framework aims to build a secure and stable digital environment by enhancing security awareness, protecting systems from attacks, identifying vulnerabilities before exploitation, and developing rapid and effective response capabilities to ensure operational continuity and safeguard critical data.",
+        tech: "The system relies on a set of advanced cybersecurity technologies, including intrusion detection and prevention systems, firewalls, virtual lab environments, network analysis tools, and Security Information and Event Management (SIEM) systems, to build a robust infrastructure capable of monitoring, analyzing, and effectively responding to threats."
+    };
+
+    document.getElementById("contentBox").innerHTML =
+        `<h2>${type.toUpperCase()}</h2><p>${data[type]}</p>`;
+}
+
+function toggleSettings(){
+    document.querySelector(".settings").classList.toggle("show");
+}
+
+function showDevice(type){
+
+    const systems = {
+        windows: "Windows info...",
+        server: "Server info...",
+        router: "Router info...",
+        ubuntu: "Ubuntu info...",
+        kali: "Kali Linux info..."
+    };
+
+    document.getElementById("docsContent").innerHTML =
+        `<h2>${type}</h2><p>${systems[type]}</p>`;
+}
+
+window.showPage = showPage;
+window.showContent = showContent;
+window.toggleSettings = toggleSettings;
+window.showDevice = showDevice;
+
+</script>
+
+</body>
+</html>
